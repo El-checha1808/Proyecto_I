@@ -86,6 +86,128 @@ void RegistroAlu::verDatos(string a){
 	
 }
 
+void RegistroAlu::modificarDatos(){
+	
+	int sel, op;
+	string carnet2, texto, ciclo, promedio;
+	fstream file, file2;
+	int encontrado = 0;
+	int noEncontrado = 0;
+	file.open("registroAlumnos.txt", ios::in);
+	file2.open("registro.txt", ios::app);
+	
+	cout << "\n     ****************************" << endl;
+	cout << "     |    Modificar Datos       |" << endl;
+	cout << "     ****************************\n" << endl;
+	cin.ignore(1, '\n');
+	cout << "Ingresar numero de carnet: ";
+	getline(cin, carnet2, '\n');
+	
+	while(getline(file, texto, '\n')){
+		
+		stringstream input_stringstream(texto);
+		
+		getline(input_stringstream, nombre, ',');
+		getline(input_stringstream, carnet, ',');
+		getline(input_stringstream, correo, ',');
+		getline(input_stringstream, seccion, ',');
+		getline(input_stringstream, ciclo, ',');
+		getline(input_stringstream, estado, ',');
+		getline(input_stringstream, promedio, ',');
+		
+		if (carnet2 == carnet){
+			
+			cout << "\nQue datos desea modificar?\n" << endl;
+			cout << "1. Estado" << endl;
+			cout << "2. Promedio" << endl;
+			cout << "0. Salir\n" << endl;
+			cout << " -> ";
+			cin >> sel;
+			
+			if (sel == 1){
+				
+				cout << "\nEstado actual: " << estado << endl;
+				cin.ignore(1, '\n');
+				cout << "\nIngrese nuevo estado: ";
+				getline(cin, estado, '\n');
+				
+				cout << "Desea continuar?" << endl;
+				cout << "1. SI" << endl;
+				cout << "2. NO" << endl;
+				cin >> op;
+				
+				if (op == 1){
+					
+					cout << "\nNombre: " << nombre << endl;
+					cout << "Carnet: " << carnet << endl;
+					cout << "Correo: " << correo << endl;
+					cout << "Seccion: " << seccion << endl;
+					cout << "Ciclo: " << ciclo << endl;
+					cout << "Estado: " << estado << endl;
+					cout << "Promedio: " << promedio << endl;
+					
+					file2 << nombre << "," << carnet << "," << correo << "," << seccion << "," << ciclo << "," << estado << "," << promedio << endl;
+					
+				} else {
+					
+					cout << "No se realizaron cambios" << endl;
+				}
+				
+			} else if (sel == 2){
+				
+				cout << "\nPromedio actual: " << promedio << endl;
+				cin.ignore(1, '\n');
+				cout << "\nIngrese nuevo promedio: ";
+				getline(cin, promedio, '\n');
+				
+				cout << "Desea continuar?" << endl;
+				cout << "1. SI" << endl;
+				cout << "2. NO" << endl;
+				cin >> op;
+				
+				if (op == 1){
+					
+					cout << "\nNombre: " << nombre << endl;
+					cout << "Carnet: " << carnet << endl;
+					cout << "Correo: " << correo << endl;
+					cout << "Seccion: " << seccion << endl;
+					cout << "Ciclo: " << ciclo << endl;
+					cout << "Estado: " << estado << endl;
+					cout << "Promedio: " << promedio << endl;
+					
+					file2 << nombre << "," << carnet << "," << correo << "," << seccion << "," << ciclo << "," << estado << "," << promedio << endl;
+					
+				} else {
+					
+					cout << "No se realizaron cambios" << endl;
+				}
+			} 
+			
+			encontrado = 1;
+			
+		} else {
+
+			file2 << nombre << "," << carnet << "," << correo << "," << seccion << "," << ciclo << "," << estado << "," << promedio << endl;
+			noEncontrado = 0;
+		}
+		
+	}
+	
+	if (encontrado == 0 && noEncontrado == 0){
+			
+		cout << "\nNumero de carnet no encontrado\n" << endl;
+		
+	} else {
+			
+		cout << "\n" << endl;
+	}
+	
+	file.close();
+	file2.close();
+	restaurar();
+	system("pause");
+}
+
 void RegistroAlu::restaurar(){
 	
 	ifstream file;

@@ -86,7 +86,29 @@ void RegistroAlu::verDatos(string a){
 	
 }
 
+void RegistroAlu::restaurar(){
 	
+	ifstream file;
+	ofstream file2;
+	string texto;
+	file.open("registro.txt", ios::in);
+	file2.open("registroAlumnos.txt", ios::out);
+	
+	if (file.fail()){
+		
+		cout << "No se pudo abrir el archivo" << endl;
+		exit(1);
+	}
+	
+	while(getline(file, texto, '\n')){
+		
+		file2 << texto << endl;
+	}
+	
+	file.close();
+	file2.close();
+	remove("registro.txt");
+}	
 
 int main(){
 	

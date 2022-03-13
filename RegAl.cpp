@@ -232,6 +232,75 @@ void RegistroAlu::restaurar(){
 	remove("registro.txt");
 }	
 
+void RegistroAlu::buscarAl(){
+	
+	ifstream file;
+	string texto, ciclo, promedio, buscar;
+	string registros[7];
+	int encontrado = 0;
+	file.open("registroAlumnos.txt", ios::in);
+	
+	if (file.fail()){
+		
+		cout << "El archivo no se puede abrir" << endl;
+		exit(1);
+	}
+	
+	cout << "\n     ****************************" << endl;
+	cout << "     |    Busqueda de Alumnos   |" << endl;
+	cout << "     ****************************\n" << endl;
+	cin.ignore(1, '\n');
+	cout << "Ingrese numero de carnet: ";	
+	getline(cin, buscar, '\n');
+	
+	while(getline(file, texto, '\n')){
+		
+		stringstream input_stringstream(texto);
+		
+		getline(input_stringstream, nombre, ',');
+		getline(input_stringstream, carnet, ',');
+		getline(input_stringstream, correo, ',');
+		getline(input_stringstream, seccion, ',');
+		getline(input_stringstream, ciclo, ',');
+		getline(input_stringstream, estado, ',');
+		getline(input_stringstream, promedio, ',');
+		
+		if (carnet == buscar){
+			
+			cout << "\n";
+			cout << "Nombre: " << nombre << endl;
+			cout << "Carnet: " << carnet << endl;
+			cout << "Correo: " << correo << endl;
+			cout << "Seccion: " << seccion << endl;
+			cout << "Ciclo: " << ciclo << endl;
+			cout << "Estado: " << estado << endl;
+			cout << "Promedio: " << promedio << endl;
+			encontrado = 1;	
+			break;
+			
+		} else {
+			
+			encontrado = 0;
+			
+		}
+			
+	}
+	
+	
+	if (encontrado == 0){
+			
+		cout << "\nNo se encontraron resultados\n" << endl;
+		
+	} else {
+			
+		cout << "\n" << endl;
+	}
+	
+	file.close();
+	system("pause");
+	
+}
+
 int main(){
 	
 	RegistroAlu reg;
